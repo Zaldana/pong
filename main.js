@@ -11,7 +11,17 @@ const playerPaddle = document.querySelector('.player-paddle');
 const startButton = document.querySelector('.start');
 
 //get stop button
-const stopButton = document.querySelector('.stop');
+const resetButton = document.querySelector('.reset');
+
+//get score
+const playerScore = document.querySelector('.player-score');
+const computerScore = document.querySelector('.computer-score');
+
+let x = 1;
+
+//Player score counter
+let scorePlayer = 0;
+let scoreComputer = 0;
 
 // Size of the game area (in px)
 const GAME_AREA_WIDTH = 700;
@@ -32,18 +42,40 @@ let ballYvelocity = 1;
 
 // The y-velocity of the computer paddle
 let computerPaddleYPosition = 0;
-let computerPaddleYVelocity = 1;
+// let computerPaddleYVelocity = 1;
 
 // The y-velocity of the player paddle
-let playerPaddleYPosition = 0;
-let playerPaddleYVelocity = 1;
+let playerPaddleYPosition = 235;
+// let playerPaddleYVelocity = 1;
 
-// Update the pong world
+//Start & Reset ===============================================================================
+
+//Stop interval
+let stop = null;
+
+//Start Button
+startButton.addEventListener('click', function () { 
+    stop = setInterval(update, 1); 
+    startButton.style.boxShadow = "0 0 25px grey";
+    startButton.style.textShadow = "0 0 20px grey";
+    startButton.style.color = "rgba(255, 255, 255, 0.187)";});
+
+//Reset Button
+resetButton.addEventListener('click', function () {
+    ballYposition = 350;
+    ballXposition = 420;
+    stop = setInterval(update, 1);
+    resetButton.style.boxShadow = "0 0 25px grey";
+    resetButton.style.textShadow = "0 0 20px grey";
+    resetButton.style.color = "rgba(255, 255, 255, 0.187)";
+    ballXvelocity = 1;
+    ballYvelocity = 1; });
+
+// Update the pong world ==================================================================
+
 function update() {
 
-    
-
-    //THE BALL ========================================================================
+    // Ball top & bottom bounce ===========================================================
 
     // Update & apply the ball's X position
     ballXposition = ballXposition + ballXvelocity;
@@ -52,20 +84,6 @@ function update() {
     // Update & apply the balls's Y position
     ballYposition = ballYposition + ballYvelocity;
     ball.style.top = `${ballYposition}px`;
-
-    //If ball hits left wall
-    if (ballXposition === 0) {
-
-        ballXvelocity = ballXvelocity * -1;
-
-    }
-
-    //If ball hits right wall
-    if (ballXposition === 850) {
-
-        ballXvelocity = ballXvelocity * -1;
-
-    }
 
     //If ball hits top wall
     if (ballYposition === 0) {
@@ -81,67 +99,89 @@ function update() {
 
     }
 
-    //Computer Paddle==================================================================
+    // Ball Scoring =======================================================================
 
-    // Update and apply the computer paddle's Y position
-    computerPaddleYPosition = computerPaddleYPosition + computerPaddleYVelocity;
-    computerPaddle.style.top = `${computerPaddleYPosition}px`;
+    //If ball scores left
+    if (ballXposition < 5) {
 
-    //If computer paddle hits bottom
-    if (computerPaddleYPosition === 480) {
-
-        computerPaddleYVelocity = computerPaddleYVelocity * -1;
-
-
-    }
-    //If computer paddle hits top
-    if (computerPaddleYPosition === 0) {
-
-        computerPaddleYVelocity = computerPaddleYVelocity * -1;
+        clearInterval(stop);
+        resetButton.style.boxShadow = "0 0 25px orangeRed";
+        resetButton.style.textShadow = "0 0 25px orangeRed";
+        resetButton.style.color = "peachpuff";
+        scoreComputer += 1;
+        computerScore.innerText = scoreComputer;
 
     }
 
-    //Paddle Ball Bounce ======================================================
+    //If ball hits right wall
+    if (ballXposition > 840) {
+
+        clearInterval(stop);
+        resetButton.style.boxShadow = "0 0 25px orangeRed";
+        resetButton.style.textShadow = "0 0 25px orangeRed";
+        resetButton.style.color = "peachpuff";
+        scorePlayer += 1;
+        playerScore.innerText = scorePlayer;
+
+    }
+
+    //Computer Paddle=========================================================================
     
+    // console.log
+    // if (ballXvelocity >= 2) {
+
+    //     x === .9;
+
+    // }
+    // console.log(x);
+    
+    if (ballYposition > 100) {
+
+        computerPaddleYPosition = (ballYposition - 100) * x;
+        computerPaddle.style.top = `${computerPaddleYPosition}px`;
+    }
+
+    //Paddle Ball Bounce ======================================================================
+    
+    //Computer side
     if (ballXposition > 783 && ballYposition <= computerPaddleYPosition + 120 && ballYposition >= computerPaddleYPosition) {
 
-        ballXvelocity = ballXvelocity * -1;
-        console.log("ball" + ballYposition);
-        console.log(computerPaddleYPosition);
+        ballXvelocity = (ballXvelocity * -1);
 
     }
 
-    if (ballXposition < 50 && ballYposition <= playerPaddleYPosition + 120 && ballYposition >= playerPaddleYPosition) {
+    //Player side
+    if (ballXposition < 45 && ballYposition <= playerPaddleYPosition + 120 && ballYposition >= playerPaddleYPosition) {
 
-        ballXvelocity = ballXvelocity * -1;
-        console.log("ball" + ballYposition);
-        console.log(computerPaddleYPosition);
-
-    }
-
-    //Player paddle ===============================================================
-
-    // Update and apply the player paddle's position
-    playerPaddleYPosition = playerPaddleYPosition + playerPaddleYVelocity;
-    playerPaddle.style.top = `${playerPaddleYPosition}px`;
-
-
-    //If computer paddle hits bottom
-    if (playerPaddleYPosition === 480) {
-
-        playerPaddleYVelocity = playerPaddleYVelocity * -1;
-
-    }
-
-    if (playerPaddleYPosition === 0) {
-
-        playerPaddleYVelocity = playerPaddleYVelocity * -1;
+        ballXvelocity = (ballXvelocity * -1.4);
 
     }
 
 }
 
+//Player controls =========================================================================
 
-startButton.addEventListener('click', function() { setInterval(update, 1) });
+document.addEventListener("keydown", function (event) {
+    
+    if (playerPaddleYPosition < 460) {
+        switch (event.key) {
+            case "Down":
+            case "ArrowDown":
+                playerPaddleYPosition = playerPaddleYPosition + 45;
+                playerPaddle.style.top = `${playerPaddleYPosition}px`;
+                break;
+        }
+    }
 
-stopButton.addEventListener('click', function () { location.reload() });
+    if (playerPaddleYPosition > 20) {
+        switch (event.key) {
+            case "Up":
+            case "ArrowUp":
+            playerPaddleYPosition = playerPaddleYPosition - 45;
+            playerPaddle.style.top = `${playerPaddleYPosition}px`;
+            break;
+        }
+    }
+
+});
+

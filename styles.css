@@ -25,7 +25,7 @@ img {
 
 .text {
 
-    color: rgba(7, 26, 91, 0.721);
+    color: rgba(6, 30, 108, 0.721);
     font-size: 130px;
     font-family: 'Monoton', cursive;
     position: absolute;
@@ -35,23 +35,23 @@ img {
 
 .net {
     width: 0px;
-    border-left: rgb(237, 201, 255) dashed 5px;
+    border-left: rgb(237, 201, 255) dashed 3px;
     height: 600px;
     left: 430px;
     position: absolute;
-    box-shadow: 0 0 20px rgb(157, 0, 255);
+    box-shadow: 0 0 10px rgb(157, 0, 255);
 }
 
 .ball {
     border-style: solid;
     border-width: 2px;
     border-color: orangered;
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
     position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 50px;
+    top: 280px;
+    left: 416px;
+    border-radius: 50%;
     box-shadow: 0 0 15px orangered;
 }
 
@@ -60,7 +60,7 @@ img {
     width: 3px;
     height: 600px;
     background-color: rgb(251, 254, 203);
-    box-shadow: 0px 0px 10px #ffea00;
+    box-shadow: 0px 0px 15px #ffea00;
     position: absolute;
     left: 809px;
 }
@@ -76,6 +76,7 @@ img {
 
 .player-paddle {
     left: 30px;
+    top: 235px
 }
 
 .computer-paddle {
@@ -96,24 +97,67 @@ img {
     font-size: 18px;
     font-family: 'Press Start 2P', cursive;
     text-transform: uppercase;
-     cursor: pointer;
+    cursor: pointer;
    
 }
 
-.stop {
+.reset {
 
     margin-left: 100px;
     border-radius: 50%;
     height: 150px;
     width: 150px;
-    box-shadow: 0 0 25px orangered;
-    text-shadow: 0 0 20px orangered;
-    color: peachpuff;
+    box-shadow: 0 0 25px grey;
+    text-shadow: 0 0 20px grey;
+    color:rgba(255, 255, 255, 0.187);
     text-align: center;
     line-height: 150px;
     font-family: 'Monoton', cursive;
     font-size: 18px;
     font-family: 'Press Start 2P', cursive;
     text-transform: uppercase;
-     cursor: pointer;
+    cursor: pointer;
+}
+
+.newgame {
+
+    position: absolute;
+    margin-top: 800px;
+
+}
+
+button {
+
+    cursor: pointer;
+    padding: 20px;
+    font-size: 25px;
+    color: magenta;
+    background-color: transparent;
+    border-color: transparent;
+    border-width: 1px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px magenta;
+    font-family: 'Press Start 2P', cursive;
+    text-transform: uppercase;
+
+}
+
+.score {
+
+    position: absolute;
+    display: flex;
+
+}
+
+h1 {
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: 50px;
+    color: white;
+    margin-bottom: 800px
+
+}
+
+.player-score {
+    margin-right: 300px;
 }

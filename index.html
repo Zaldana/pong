@@ -16,11 +16,18 @@
 </head>
 <body>
 
+    <div class="score">
+
+        <h1 class="player-score">0</h1>
+        <h1 class="computer-score">0</h1>
+
+    </div>
+
     <div class="start">start</div>
 
-    <h1 class="text">PONG</h1>
+    <div class="text">PONG</div>
 
-    <img src="background.png" style="width: 100%;"/>
+    <img src="background.png" style="width: 100%; height: 100%;"/>
 
     <div class="game-area">
 
@@ -36,9 +43,15 @@
 
     </div>
 
-    <div class="stop">stop</div>
+    <div class="reset">reset</div>
 
     <script src="main.js"></script>
+    
+    <div class="newgame">
+
+        <button onClick="window.location.reload();">New Game</button>
+    
+    </div>
 
 </body>
 </html>
